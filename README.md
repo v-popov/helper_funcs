@@ -7,7 +7,7 @@ This module provides a handful of functions to simplify the typical data process
 
 ## Methods
 
-* ###`df_preview(df, n_samples)`
+* `df_preview(df, n_samples)`
 
     ***Description***
     
@@ -28,7 +28,7 @@ This module provides a handful of functions to simplify the typical data process
     * pandas.DataFrame containing the summary information about the passed DataFrame.
     
 
-* ###`rename_col(df, old_name, new_name)`
+* `rename_col(df, old_name, new_name)`
 
     ***Description***
     
@@ -53,7 +53,7 @@ This module provides a handful of functions to simplify the typical data process
     * pandas.DataFrame with the renamed column.
     
     
-* ###`columns_mismatch(col_1, col_2)`
+* `columns_mismatch(col_1, col_2)`
 
     ***Description***
     
@@ -76,7 +76,7 @@ This module provides a handful of functions to simplify the typical data process
     * Set with values which `col_1` contains and `col_2` does not contain.
     
 
-* ###`df_difference(df_1, df_2)`
+* `df_difference(df_1, df_2)`
 
     ***Description***
     
@@ -101,7 +101,7 @@ This module provides a handful of functions to simplify the typical data process
     * pandas.DataFrame with rows which `df_1` contains and `df_2` does not contain.
     
     
-* ###`verify_dates_integity(df, date_col)`
+* `verify_dates_integity(df, date_col)`
 
     ***Description***
     
@@ -118,7 +118,7 @@ This module provides a handful of functions to simplify the typical data process
         Name of `df` column that will be verified for integrity
        
        
-* ###`duplicate(df, how, n_times)`
+* `duplicate(df, how, n_times)`
 
     ***Description***
     
@@ -144,7 +144,7 @@ This module provides a handful of functions to simplify the typical data process
     * Extended pandas.DataFrame with repeated rows
     
     
-* ###`groupby_to_list(df, by_cols, col_to_list)`
+* `groupby_to_list(df, by_cols, col_to_list)`
 
     ***Description***
     
@@ -171,7 +171,7 @@ This module provides a handful of functions to simplify the typical data process
     `col_to_list` column are lists.
     
     
-* ###`chunkenize(data_to_split, num_chunks, df_indices, copy)`
+* `chunkenize(data_to_split, num_chunks, df_indices, copy)`
 
     ***Description***
     
@@ -202,7 +202,7 @@ This module provides a handful of functions to simplify the typical data process
     * List of `num_chunks` chunks that have same type as `data_to_split`.
 
 
-* ###`filter_df(df, col_name, l_bound, r_bound, inclusive)`
+* `filter_df(df, col_name, l_bound, r_bound, inclusive)`
 
     ***Description***
     
