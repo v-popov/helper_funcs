@@ -1,11 +1,14 @@
 # Functionality Guide
+
 This module provides a handful of functions to simplify the typical data processing operations and simplifying data verification procedures.
 
-## Dependencies
+# Dependencies
 * `numpy 1.17.1`
 * `pandas 0.25.1`
 
-## Methods
+# Methods
+
+---
 
 * `df_preview(df, n_samples)`
 
@@ -27,7 +30,8 @@ This module provides a handful of functions to simplify the typical data process
     
     * pandas.DataFrame containing the summary information about the passed DataFrame.
     
-
+---
+    
 * `rename_col(df, old_name, new_name)`
 
     ***Description***
@@ -52,6 +56,7 @@ This module provides a handful of functions to simplify the typical data process
     
     * pandas.DataFrame with the renamed column.
     
+---
     
 * `columns_mismatch(col_1, col_2)`
 
@@ -75,6 +80,7 @@ This module provides a handful of functions to simplify the typical data process
     
     * Set with values which `col_1` contains and `col_2` does not contain.
     
+---
 
 * `df_difference(df_1, df_2)`
 
@@ -100,6 +106,7 @@ This module provides a handful of functions to simplify the typical data process
     
     * pandas.DataFrame with rows which `df_1` contains and `df_2` does not contain.
     
+---
     
 * `verify_dates_integity(df, date_col)`
 
@@ -116,7 +123,8 @@ This module provides a handful of functions to simplify the typical data process
     * **`date_col`: str**
     
         Name of `df` column that will be verified for integrity
-       
+        
+---
        
 * `duplicate(df, how, n_times)`
 
@@ -143,6 +151,7 @@ This module provides a handful of functions to simplify the typical data process
     
     * Extended pandas.DataFrame with repeated rows
     
+---
     
 * `groupby_to_list(df, by_cols, col_to_list)`
 
@@ -167,9 +176,9 @@ This module provides a handful of functions to simplify the typical data process
     
     ***Returns***
     
-    * pandas.DataFrame with columns [`by_cols`, `col_to_list`] so that all the values in
-    `col_to_list` column are lists.
+    * pandas.DataFrame with columns [`by_cols`, `col_to_list`] so that all the values in `col_to_list` column are lists.
     
+---
     
 * `chunkenize(data_to_split, num_chunks, df_indices, copy)`
 
@@ -183,7 +192,7 @@ This module provides a handful of functions to simplify the typical data process
     * **`data_to_split`: pandas.DataFrame or list**
     
         The DataFrame which you want to split in chunks
-           
+        
     * **`num_chunks`: int**
     
         Number of chunks that your data will be split in
@@ -200,7 +209,8 @@ This module provides a handful of functions to simplify the typical data process
     ***Returns***
     
     * List of `num_chunks` chunks that have same type as `data_to_split`.
-
+    
+---
 
 * `filter_df(df, col_name, l_bound, r_bound, inclusive)`
 
@@ -234,3 +244,5 @@ This module provides a handful of functions to simplify the typical data process
     ***Returns***
     
     * Filtered pandas.DataFrame
+    
+---
