@@ -6,6 +6,18 @@ This module provides a handful of functions to simplify the typical data process
 * `numpy 1.17.1`
 * `pandas 0.25.1`
 
+# Installation Guide
+
+* `pip install helper-funcs`
+
+# Usage
+
+Import class "HF" from module "helper_funcs":
+
+* `from helper_funcs import HF`
+
+And then call any of the methods described below.
+
 # Methods
 
 ---
