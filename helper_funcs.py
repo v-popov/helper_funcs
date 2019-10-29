@@ -15,12 +15,15 @@ class HF:
              'Sample Values': []}
         for col_name in df.columns:
             col = df[col_name]
+            unique_vals = col.unique()
             d['col_name'].append(col_name)
             d['Num Nulls'].append(col.isna().sum())
             d['Type'].append(col.dtypes)
-            d['Num Unique'].append(col.unique().shape[0])
-            d['Sample Values'].append(col.values[:n_samples])
-        logging.info('Shape: {}'.format(df.shape))
+            d['Num Unique'].append(unique_vals.shape[0])
+            d['Sample Values'].append(unique_vals[:n_samples])
+        logging.info('DF Shape: {}'.format(df.shape))
+        dupl_indices = df.duplicated(subset=None, keep='first')
+        logging.info('Number of Duplicated Records: {}'.format(dupl_indices.sum()))
         return pd.DataFrame(d)
 
     def rename_col(df: pd.DataFrame, old_name: str, new_name: str) -> pd.DataFrame:
@@ -65,10 +68,12 @@ class HF:
         date_end = df[date_col].max()
         date_range = pd.date_range(start=date_start, end=date_end, freq='D')
         logging.info('Start Date: {}; End Date: {}, Range Length: {}'.format(date_start, date_end, len(date_range)))
-        num_missing_dates = ~np.isin(date_range, dates)
-        logging.info('Number of missing dates: {}'.format(sum(num_missing_dates)))
-        if sum(num_missing_dates) > 0:
-            logging.info('Missing dates: {}'.format(date_range[~np.isin(date_range, dates)]))
+        missing_dates_flag = ~np.isin(date_range, dates)
+        logging.info('Number of missing dates: {}'.format(sum(missing_dates_flag)))
+        if sum(missing_dates_flag) > 0:
+            missing_dates = date_range[missing_dates_flag]
+            logging.info('Missing dates: {}'.format(missing_dates))
+        return date_range[missing_dates_flag]
 
     def duplicate(df: pd.DataFrame, how: str, n_times: int) -> pd.DataFrame:
         """
