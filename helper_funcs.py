@@ -7,6 +7,7 @@ logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 
 class HF:
 
+    @staticmethod
     def df_preview(df: pd.DataFrame, n_samples: int = 2) -> pd.DataFrame:
         d = {'col_name': [],
              'Num Nulls': [],
@@ -26,6 +27,7 @@ class HF:
         logging.info('Number of Duplicated Records: {}'.format(dupl_indices.sum()))
         return pd.DataFrame(d)
 
+    @staticmethod
     def rename_col(df: pd.DataFrame, old_name: str, new_name: str) -> pd.DataFrame:
         new_columns = df.columns.values
         col_ind = list(new_columns).index(old_name)
@@ -33,11 +35,11 @@ class HF:
         df.columns = new_columns
         return df
 
+    @staticmethod
     def columns_mismatch(col_1: pd.Series, col_2: pd.Series) -> set:
         """
-        :param df:
-        :param col_name_1:
-        :param col_name_2:
+        :param col_1:
+        :param col_2:
         :return: set of values from df[col_name_1] that are not present in df[col_name_2]
         """
         set_unique1 = set(col_1.unique())
@@ -49,10 +51,11 @@ class HF:
               'but not present in Column_2:\n\n{}'.format(len(difference), difference))
         return difference
 
+    @staticmethod
     def df_difference(df_1: pd.DataFrame, df_2: pd.DataFrame) -> pd.DataFrame:
         """
-        :param df1:
-        :param df2:
+        :param df_1:
+        :param df_2:
         :return: pd.DataFrame of values that are present in df1, but not present in df2
         """
         assert df_1.shape[1] == df_2.shape[1], 'DataFrames have different number of columns'
@@ -62,6 +65,7 @@ class HF:
         df_2.columns = col_names
         return pd.concat([df_2, df_1, df_1], sort=False).drop_duplicates(keep=False)
 
+    @staticmethod
     def verify_dates_integity(df: pd.DataFrame, date_col: str) -> None:
         dates = pd.to_datetime(df[date_col])
         date_start = df[date_col].min()
@@ -75,6 +79,7 @@ class HF:
             logging.info('Missing dates: {}'.format(missing_dates))
         return date_range[missing_dates_flag]
 
+    @staticmethod
     def duplicate(df: pd.DataFrame, how: str, n_times: int) -> pd.DataFrame:
         """
         :param df:
@@ -87,6 +92,7 @@ class HF:
         elif how == 'element_wise':
             return pd.DataFrame(np.repeat(df.values, n_times, axis=0), columns=df.columns)
 
+    @staticmethod
     def groupby_to_list(df: pd.DataFrame, by_cols: list, col_to_list: str) -> pd.DataFrame:
         """
         :param df: pd.DataFrame
@@ -97,9 +103,10 @@ class HF:
         groupped = df.groupby(by_cols)
         return groupped[col_to_list].apply(list).reset_index()
 
+    @staticmethod
     def chunkenize(data_to_split, num_chunks, df_indices=[], copy=True) -> list:
         """
-        :param data: list or pd.DataFrame
+        :param data_to_split: list or pd.DataFrame
         :param num_chunks: int
         :param df_indices: can be provided if type(data)==pd.DataFrame
         :param copy: Boolean, defines whether the copy of data is created, so that the data in outer scope is not affected
@@ -133,7 +140,8 @@ class HF:
 
         return chunks
 
-    def filter_df(df, col_name, l_bound=None, r_bound=None, inclusive=True) -> pd.DataFrame:
+    @staticmethod
+    def filter_df(df: pd.DataFrame, col_name: str, l_bound=None, r_bound=None, inclusive=True) -> pd.DataFrame:
         """
         :param df: pd.DataFrame to be filtered
         :param col_name: str; should be in df.columns
@@ -167,4 +175,21 @@ class HF:
         df = df[inds]
         logging.info('Resulting length: {}'.format(len(df)))
 
+        return df
+
+    @staticmethod
+    def prepare_str_cols(df: pd.DataFrame, make_uppercase: bool):
+        """
+        :param df: pd.DataFrame
+        :param make_uppercase: bool, if True all strings in DF will be upper-cased and lower-cased otherwise
+        :return: df with same structure, where all strings are either upper-cased or lower-cased with all leading
+                 and trailing spaces removed
+        """
+        case_func = str.upper if make_uppercase else str.lower
+        for col in df.columns:
+            try:
+                df[col] = [case_func(x).strip() for x in df[col].values]
+                logging.info('Processed column: {}'.format(col))
+            except TypeError:
+                pass
         return df

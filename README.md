@@ -258,3 +258,24 @@ And then call any of the methods described below.
     * Filtered pandas.DataFrame
     
 ---
+
+* `prepare_str_cols(df, make_uppercase)`
+
+    ***Description***
+    
+    Strips leading and trailing spaces in str columns of `df` and makes those values to either upper-case or lower-case.
+    
+    ***Parameters***
+    
+    * **`df`: pandas.DataFrame**
+    
+        The DataFrame you want to prepare str columns for.
+           
+    * **`make_uppercase`: bool**
+    
+        Determines whether you want str values to be upper-cased or lower-cased.
+    
+    ***Returns***
+    
+    * pandas.DataFrame where all strings are either upper-cased or lower-cased with all leading and trailing spaces removed.
+---
